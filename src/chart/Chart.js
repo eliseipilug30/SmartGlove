@@ -4,7 +4,7 @@ import { LineController } from 'chart.js';
 
 Chart.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement, LineController);
 
-function ChartComponent({ selectedDate, deviceId }) {
+function ChartComponent() {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
     const [dataPoints] = useState(new Array(24).fill(0)); // Initial chart data
