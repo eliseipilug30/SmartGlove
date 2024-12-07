@@ -3,6 +3,7 @@ import React from 'react';
 import BackgroundImg from '../commons/images/download_1.jpg';
 
 import {Container, Jumbotron} from 'reactstrap';
+import "./styles/home.css"
 
 const backgroundStyle = {
     backgroundPosition: 'center',
@@ -28,18 +29,24 @@ class Home extends React.Component {
                     <p className="lead" style={textStyle}> <b>Shaping the future of your team's well-being.</b>
                     </p>
                 </Container>
-                <div className="homepage-container">
-                    <div className="card left-card">
-                        <h2>Fancy Text 1</h2>
-                        <p>This is some fancy text for the left card.</p>
+                <div className="cards-container">
+                    <div className="card">
+                        <h2>Ambiental data</h2>
+                        <div className="ambient">
+                            <p>Outside temperature:</p>
+                            <p>Outside humidity:</p>
+                            <p>UV level:</p>
+                            <p>Extreme weather warnings:</p>
+                        </div>
                     </div>
-                    <div className="card right-card">
-                        <h2>Fancy Text 2</h2>
-                        <p>This is some fancy text for the right card.</p>
+                    <div className="card">
+                        <h2>Employee data</h2>
+                        <div className="employee">
+                            <p>This is some fancy text for the right card.</p>
+                        </div>
                     </div>
                 </div>
                 </Jumbotron>
-
             </div>
         )
     };

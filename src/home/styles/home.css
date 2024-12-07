@@ -1,0 +1,39 @@
+.cards-container {
+    display: flex; /* Activate Flexbox */
+    flex-direction: row; /* Ensure horizontal layout */
+    flex-wrap: wrap;
+    justify-content: space-between; /* Space cards evenly */
+    align-items: flex-start; /* Align cards at the top */
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff; /* White background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    width: 45%; /* Control width for side-by-side appearance */
+    text-align: center;
+}
+
+.ambient {
+    text-align: start;
+}
+
+.employee {
+    text-align: start;
+}
+
+/* Responsive design for mobile screens */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column; /* Stack cards vertically on small screens */
+        align-items: center; /* Center align for a cleaner look */
+    }
+
+    .card {
+        width: 80%; /* Adjust width for smaller screens */
+        margin: 10px 0; /* Add spacing between stacked cards */
+    }
+}
