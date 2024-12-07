@@ -15,10 +15,16 @@
     padding: 20px;
     width: 45%; /* Control width for side-by-side appearance */
     text-align: center;
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .text {
     text-align: start;
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .weather-data img {
@@ -26,4 +32,5 @@
     height: auto; /* Maintain aspect ratio */
     margin: 10px auto; /* Add spacing and center it */
     display: block; /* Ensure proper display */
+    scale: 2.5;
 }

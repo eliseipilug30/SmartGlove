@@ -15,7 +15,8 @@ import {
 
 const textStyle = {
     color: 'white',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontFamily: "Merriweather",
 };
 
 function NavigationBar() {
