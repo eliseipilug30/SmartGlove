@@ -130,12 +130,13 @@ const WeatherContainer = () => {
                     <p>Humidity: {weatherData.main.humidity}%</p>
                     <p>Weather: {weatherData.weather[0].description}</p>
                     <p>Wind Speed: {weatherData.wind.speed} m/s</p>
-                    <p>Visibility: {weatherData.visibility}</p>
+                    <p>Visibility: {weatherData.visibility} m</p>
                     <p>UV Index: {UVIndex.value}</p>
                 </div>
             </div>
             <div className="weather-data">
                 <img src={icon} alt="weather icon"/>
+                <p>--------------------------------------------------</p>
                 <p style={extremeStyle}>{extremeMessage}</p>
                 <p style={visibilityStyle}>{visibilityMessage}</p>
                 <p style={uvStyle}>{uvMessage}</p>

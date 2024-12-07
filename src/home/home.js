@@ -3,6 +3,8 @@ import BackgroundImg from '../commons/images/download_3.jpg';
 import { Container, Jumbotron } from 'reactstrap';
 import "./styles/home.css";
 import WeatherContainer from "../weather_forecast/weather-container";
+import Local from "../local_data/local";
+import EmployeeData from "../wearable_data/employee-data";
 
 const backgroundStyle = {
     backgroundPosition: 'center',
@@ -28,21 +30,8 @@ const Home = () => {
                     <WeatherContainer/>
                 </div>
                 <div className="cards-container">
-                    <div className="card">
-                        <h2>Ambiental data</h2>
-                        <div className="ambient">
-                            <p>Workplace temperature:</p>
-                            <p>Workplace humidity:</p>
-                            <p>Smoke level:</p>
-                            <p>Gas level:</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <h2>Employee data</h2>
-                        <div className="employee">
-                            <p>Some graph to view an average of the employee's data</p>
-                        </div>
-                    </div>
+                    <Local />
+                    <EmployeeData />
                 </div>
             </Jumbotron>
         </div>

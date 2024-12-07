@@ -10,7 +10,7 @@ const pool = new Pool({
 const getMerchants = async () => {
     try {
         return await new Promise(function (resolve, reject) {
-            pool.query("SELECT * FROM merchants", (error, results) => {
+            pool.query("INSERT INTO () VALUES", (error, results) => {
                 if (error) {
                     reject(error);
                 }
