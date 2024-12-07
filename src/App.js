@@ -7,10 +7,6 @@ import styles from './commons/styles/project-style.css';
 
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
 
     componentDidMount() {
 

@@ -2,14 +2,14 @@ import React from 'react'
 import logo from './commons/images/icon.png';
 
 import {
-    Button,
-    DropdownItem,
+    //Button,
+    //DropdownItem,
     DropdownMenu,
     DropdownToggle,
     Nav,
     Navbar,
     NavbarBrand,
-    NavLink,
+    //NavLink,
     UncontrolledDropdown
 } from 'reactstrap';
 
@@ -24,7 +24,7 @@ function NavigationBar() {
             <Navbar color="dark" light expand="md">
                 <NavbarBrand href="/">
                     <img src={logo} width={"50"}
-                         height={"35"}/>
+                         height={"35"} alt={"logo"}/>
                 </NavbarBrand>
                 <Nav className="mr-auto" navbar>
 
