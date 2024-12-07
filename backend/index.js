@@ -3,7 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const { SerialPort, ReadlineParser } = require('serialport');
 const cors = require('cors');
-
+const { insertReading } = require("./get-db-data");
 
 const app = express();
 const server = http.createServer(app);
@@ -75,5 +75,20 @@ io.on('connection', (socket) => {
 // Start server
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.post('/local', async (req, res) => {
+    const { temp, humidity, fire, light, co2 } = req.body;
+
+    if (!temp || !humidity || !fire || !light || !co2) {
+        return res.status(400).send('Missing required fields');
+    }
+
+    try {
+        const newReading = await insertReading(temp, humidity, fire, light, co2);
+        res.status(201).json(newReading);  // Send the inserted data as the response
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
 });
 

@@ -7,7 +7,7 @@ const pool = new Pool({
     port: 5435,
 });
 
-const insertLocalReading = async () => {
+const insertReading = async (temp, humidity, fire, light, co2) => {
     try {
         const query = 'INSERT INTO local () VALUES ($1, $2, $3) RETURNING *';
         const values = [name, address, contact_number];
@@ -21,5 +21,5 @@ const insertLocalReading = async () => {
 };
 
 module.exports = {
-    getMerchants,
+    insertReading,
 };
