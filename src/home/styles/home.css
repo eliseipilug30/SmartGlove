@@ -43,7 +43,7 @@
 /* Responsive design for mobile screens */
 @media (max-width: 768px) {
     .display-3 {
-        font-size: 1.5rem; /* Smaller size for mobile */
+        font-size: 2rem; /* Smaller size for mobile */
     }
 
     .cards-container {
