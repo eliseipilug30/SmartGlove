@@ -1,9 +1,8 @@
 import React from 'react';
-
 import BackgroundImg from '../commons/images/download_3.jpg';
-
-import {Container, Jumbotron} from 'reactstrap';
-import "./styles/home.css"
+import { Container, Jumbotron } from 'reactstrap';
+import "./styles/home.css";
+import WeatherContainer from "../weather_forecast/weather-container";
 
 const backgroundStyle = {
     backgroundPosition: 'center',
@@ -14,33 +13,28 @@ const backgroundStyle = {
     backgroundImage: `url(${BackgroundImg})`,
     backgroundColor: "0A7075"
 };
-const textStyle = {color: 'white', };
 
-class Home extends React.Component {
+const textStyle = { color: 'white' };
 
-
-    render() {
-
-        return (
-
-            <div>
-                <Jumbotron fluid style={backgroundStyle}>
+const Home = () => {
+    return (
+        <div>
+            <Jumbotron fluid style={backgroundStyle}>
                 <Container fluid>
                     <h1 className="display-3" style={textStyle}>Harmoniq</h1>
-                    <p className="lead" style={textStyle}> <b>Shaping the future of your team's well-being.</b>
-                    </p>
+                    <p className="lead" style={textStyle}><b>Shaping the future of your team's well-being.</b></p>
                 </Container>
+                <div>
+                    <WeatherContainer/>
+                </div>
                 <div className="cards-container">
                     <div className="card">
                         <h2>Ambiental data</h2>
                         <div className="ambient">
-                            <p>Outside temperature:</p>
-                            <p>Outside humidity:</p>
+                            <p>Workplace temperature:</p>
+                            <p>Workplace humidity:</p>
                             <p>Smoke level:</p>
                             <p>Gas level:</p>
-                            <p>UV level:</p>
-                            <p>Extreme weather warnings:</p>
-                            <p>Quality of air in the area:</p>
                         </div>
                     </div>
                     <div className="card">
@@ -50,10 +44,9 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                </Jumbotron>
-            </div>
-        )
-    };
-}
+            </Jumbotron>
+        </div>
+    );
+};
 
-export default Home
+export default Home;
