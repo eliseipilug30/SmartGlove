@@ -7,23 +7,16 @@ const pool = new Pool({
     port: 5435,
 });
 
-const getMerchants = async () => {
+const insertLocalReading = async () => {
     try {
-        return await new Promise(function (resolve, reject) {
-            pool.query("INSERT INTO () VALUES", (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                if (results && results.rows) {
-                    resolve(results.rows);
-                } else {
-                    reject(new Error("No results found"));
-                }
-            });
-        });
-    } catch (error_1) {
-        console.error(error_1);
-        throw new Error("Internal server error");
+        const query = 'INSERT INTO local () VALUES ($1, $2, $3) RETURNING *';
+        const values = [name, address, contact_number];
+
+        const result = await pool.query(query, values);
+        return result.rows[0];  // Return the newly inserted row
+    } catch (error) {
+        console.error('Error inserting data:', error);
+        throw new Error("Failed to insert merchant");
     }
 };
 

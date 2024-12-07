@@ -9,7 +9,7 @@ import EmployeeData from "../wearable_data/employee-data";
 const backgroundStyle = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
+    backgroundRepeat: 'repeat',
     width: "100%",
     height: "1200px",
     backgroundImage: `url(${BackgroundImg})`,
