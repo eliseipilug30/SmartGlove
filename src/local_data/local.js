@@ -50,6 +50,10 @@ const Local = () => {
         lightMessage = 'Direct sunlight warning!!!';
         lightStyle = { color: 'red' };
     }
+    else if (parsedData.L >= 400 && parsedData.L <= 600) {
+        lightMessage = 'Normal sun exposure.';
+        lightStyle = { color: 'orange' };
+    }
     else {
         lightMessage = 'No direct sunlight.';
         lightStyle = { color: 'green' };

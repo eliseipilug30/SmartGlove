@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const insertReading = async (temp, humidity, fire, light, co2) => {
     try {
-        const query = 'INSERT INTO local (temp, humidity, fire, light, co2) VALUES ($1, $2, $3) RETURNING *';
+        const query = 'INSERT INTO local (temp, humidity, fire, light, co2) VALUES ($1, $2, $3, $4, $5) RETURNING *';
         const values = [temp, humidity, fire, light, co2];
 
         const result = await pool.query(query, values);
@@ -19,6 +19,12 @@ const insertReading = async (temp, humidity, fire, light, co2) => {
         throw new Error("Failed to insert merchant");
     }
 };
+
+const insertUserReading = async() => {
+
+}
+
+const getUserR
 
 module.exports = {
     insertReading,
