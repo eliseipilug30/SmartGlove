@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BackgroundImg from '../commons/images/background.jpg';
+import BackgroundImg from '../commons/images/download_1.jpg';
 
 import {Container, Jumbotron} from 'reactstrap';
 

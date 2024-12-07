@@ -18,7 +18,7 @@ const textStyle = {
     textDecoration: 'none'
 };
 
-function NavigationBar({isLoggedIn, currentRole, logout}) {
+function NavigationBar() {
     return (
         <div>
             <Navbar color="dark" light expand="md">
@@ -27,22 +27,17 @@ function NavigationBar({isLoggedIn, currentRole, logout}) {
                          height={"35"}/>
                 </NavbarBrand>
                 <Nav className="mr-auto" navbar>
-                    {!isLoggedIn && <Button color="success" href="/login">Login</Button>}
-                    {isLoggedIn && <Button color="danger" href="/" onClick={logout}>Logout</Button>}
 
-                    {isLoggedIn &&
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle style={textStyle} nav caret>
                             Menu
                         </DropdownToggle>
                         <DropdownMenu right>
 
-                            <DropdownItem>
-                                <NavLink href="/profile">Personal page</NavLink>
-                            </DropdownItem>
+
 
                         </DropdownMenu>
-                    </UncontrolledDropdown>}
+                    </UncontrolledDropdown>
                 </Nav>
             </Navbar>
         </div>
