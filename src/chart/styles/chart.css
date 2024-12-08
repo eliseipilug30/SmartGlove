@@ -1,3 +1,19 @@
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Flexbox for the canvas */
+canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
 
 /* Media query to adjust the chart for smaller screens */
 @media (max-width: 600px) {
@@ -7,7 +23,7 @@
     }
 
     .canvas {
-        height: 20vh;  /* Reduce height on smaller screens */
+        height: 100%;  /* Reduce height on smaller screens */
         width: 100%;
     }
 }
