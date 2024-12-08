@@ -1,0 +1,21 @@
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Adjust the max width for large screens */
+    margin: 0 auto;   /* Center the chart horizontally */
+    padding: 20px;    /* Optional padding around the chart */
+}
+
+canvas {
+    display: block;
+    width: 100% !important;  /* Ensure the canvas fills the container */
+    height: auto !important; /* Let the height adjust proportionally */
+}
+
+/* For small screens, remove the max-width to allow the chart to resize more fluidly */
+@media (max-width: 600px) {
+    .chart-container {
+        padding: 10px;  /* Adjust padding for mobile screens */
+        max-width: 100%;  /* Remove max-width constraint for mobile */
+    }
+}

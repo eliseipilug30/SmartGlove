@@ -37,18 +37,22 @@ const WeatherContainer = () => {
 
     function error() {
         console.log("Unable to retrieve your location");
-        setLocation({ latitude: 46.770439, longitude: 23.591423 });
+        const latitude = 46.770439;
+        const longitude = 23.591423;
+
+        setLocation({ latitude: latitude, longitude: longitude});
+
         console.log(`Latitude: ${location.latitude}, Longitude: ${location.longitude}`);
 
 
         // Make API call to OpenWeatherMap
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa&units=metric`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa&units=metric`)
             .then(response => response.json())
             .then(data => {
                 setWeatherData(data);
                 console.log(data);
 
-                fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${location.latitude}&lon=${location.longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa`)
+                fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa`)
                     .then(response => response.json())
                     .then(data => {
                         setUVIndex(data);
