@@ -19,7 +19,14 @@ const textStyle = {
     fontFamily: "Merriweather",
 };
 
-function NavigationBar() {
+const textStyleButton = {
+    color: 'black',
+    textDecoration: 'none',
+    fontFamily: "Merriweather",
+};
+
+
+function NavigationBar({ connectToHM10, disconnectFromHM10 }) {
     return (
         <div>
             <Navbar color="dark" light expand="md">
@@ -34,9 +41,8 @@ function NavigationBar() {
                             Menu
                         </DropdownToggle>
                         <DropdownMenu right>
-
-
-
+                            <button style={textStyleButton} onClick={connectToHM10} className="dropdown-item">Connect device</button>
+                            <button style={textStyleButton} onClick={disconnectFromHM10} className="dropdown-item">Disconnect</button>
                         </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>

@@ -6,6 +6,7 @@ import WeatherContainer from "../weather_forecast/weather-container";
 import Local from "../local_data/local";
 import EmployeeData from "../wearable_data/employee-data";
 
+
 const backgroundStyle = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',

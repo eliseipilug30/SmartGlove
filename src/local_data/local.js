@@ -3,7 +3,7 @@ import {io} from "socket.io-client";
 
 const Local = () => {
     const [data, setData] = useState('');
-    const [parsedData, setParsedData] = useState({ T: 26.20, H: 30.00, F: 16, L: 76, C: 94 });
+    const [parsedData, setParsedData] = useState({ T: 26.20, H: 30.00, F: 16, L: 76, C: 54 });
 
     useEffect(() => {
         //const socket = io('ws://b07b-5-2-197-133.ngrok-free.app');
@@ -61,7 +61,7 @@ const Local = () => {
 
     let AQIMessage = '';
     let AQIStyle = {};
-    if (parsedData.C < 300) {
+    if (parsedData.C > 80) {
         AQIMessage = 'Gas leak warning!!!';
         AQIStyle = { color: 'red' };
     }
@@ -76,7 +76,7 @@ const Local = () => {
             <div className="ambient">
                 <p>Workplace temperature: {parsedData.T}°C</p>
                 <p>Workplace humidity: {parsedData.H}%</p>
-                <p>Fire presence: {parsedData.F}</p>
+                <p>Fire presence: {parsedData.F/1024}%</p>
                 <p>Light level: {parsedData.L}</p>
                 <p>Air quality index: {parsedData.C}</p>
             </div>

@@ -3,7 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const { SerialPort, ReadlineParser } = require('serialport');
 const cors = require('cors');
-const { insertReading } = require("./get-db-data");
+const { insertReading, insertEmployeeReading} = require("./get-db-data");
 
 const app = express();
 const server = http.createServer(app);
@@ -92,3 +92,17 @@ app.post('/local', async (req, res) => {
     }
 });
 
+app.post('/employee', async (req, res) => {
+    const { employee, heartrate, body_temperature, o2level, stress } = req.body;
+
+    if (!employee || !heartrate || !body_temperature || !o2level || !stress) {
+        return res.status(400).send('Missing required fields');
+    }
+
+    try {
+        const newReading = await insertEmployeeReading(employee, heartrate, body_temperature, o2level, stress);
+        res.status(201).json(newReading);  // Send the inserted data as the response
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+});

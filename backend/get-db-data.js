@@ -16,16 +16,29 @@ const insertReading = async (temp, humidity, fire, light, co2) => {
         return result.rows[0];  // Return the newly inserted row
     } catch (error) {
         console.error('Error inserting data:', error);
-        throw new Error("Failed to insert merchant");
+        throw new Error("Failed to insert reading");
     }
 };
 
-const insertUserReading = async() => {
+const insertEmployeeReading = async(employee, heartrate, body_temperature, o2level, stress) => {
+    try {
+        const query = 'INSERT INTO employee (employee_number, heartrate, body_temperature, o2level, stress) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+        const values = [employee, heartrate, body_temperature, o2level, stress];
+
+        const result = await pool.query(query, values);
+        return result.rows[0];  // Return the newly inserted row
+    } catch (error) {
+        console.error('Error inserting data:', error);
+        throw new Error("Failed to insert employee data");
+    }
+}
+
+const getEmployeeReadings = async() => {
 
 }
 
-const getUserR
-
 module.exports = {
     insertReading,
+    insertEmployeeReading,
+    getEmployeeReadings
 };
