@@ -68,6 +68,7 @@ class App extends React.Component {
                 });
 
                 console.log(value);
+                this.sendDataToBackend();
             });
 
             console.log("Connected to HM-10!");
@@ -84,6 +85,43 @@ class App extends React.Component {
             device.gatt.disconnect();
             this.setState({ device: null, data: "" });
             console.log("Disconnected from HM-10!");
+        }
+    };
+
+    generateOxygenLevel = () => {
+        return Math.floor(Math.random() * (100 - 90)) + 90;
+    }
+
+    generateStressLevel = () => {
+        return Math.floor(Math.random() * 100) + 1;
+    }
+
+
+    sendDataToBackend = async () => {
+        const {T, R, O, S} = this.state.parsedData;
+        console.log(O);
+        console.log(S);
+
+        const dataToSend = {employee: 1, heartrate: R, body_temperature: T, o2level: this.generateOxygenLevel, stress: this.generateStressLevel()};
+
+        try {
+            // Send a POST request to the backend
+            const response = await fetch('http://localhost:3001/employee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send data to the backend');
+            }
+
+            const result = await response.json();
+            console.log('Data inserted into database:', result);
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
         }
     };
 

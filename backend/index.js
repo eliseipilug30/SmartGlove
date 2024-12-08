@@ -39,7 +39,7 @@ const io = new Server(server, {
 });
 
 // Use CORS middleware
-app.use(cors());
+app.use(express.json());
 const appPort = 3001;
 
 const PORT = 3002; // Node server port

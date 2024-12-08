@@ -33,12 +33,7 @@ const insertEmployeeReading = async(employee, heartrate, body_temperature, o2lev
     }
 }
 
-const getEmployeeReadings = async() => {
-
-}
-
 module.exports = {
     insertReading,
-    insertEmployeeReading,
-    getEmployeeReadings
+    insertEmployeeReading
 };

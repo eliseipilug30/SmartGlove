@@ -26,15 +26,46 @@ const Local = () => {
                 ...prevParsedData,
                 ...newParsedData, // Merge new values into the existing state
             }));
+
+            sendDataToBackend();
         });
 
         return () => {
             socket.disconnect();
         };
-    }, []);
+    }, []); // Trigger this effect every time `parsedData` changes
 
-    let fireMessage = '';
-    let fireStyle = {};
+
+    const sendDataToBackend = async () => {
+        const { T, H, F, L, C } = parsedData;
+
+        // Construct the data to be sent to the backend
+        const dataToSend = { temp: T, humidity: H, fire: F, light: L, co2: C };
+
+        try {
+            // Send a POST request to the backend
+            const response = await fetch('http://localhost:3001/local', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send data to the backend');
+            }
+
+            const result = await response.json();
+            console.log('Data inserted into database:', result);
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
+        }
+    };
+
+
+    let fireMessage;
+    let fireStyle;
     if (parsedData.F > 512) {
         fireMessage = 'Fire warning!!!';
         fireStyle = { color: 'red' };
@@ -44,8 +75,8 @@ const Local = () => {
         fireStyle = { color: 'green' };
     }
 
-    let lightMessage = '';
-    let lightStyle = {};
+    let lightMessage;
+    let lightStyle;
     if (parsedData.L > 512) {
         lightMessage = 'Direct sunlight warning!!!';
         lightStyle = { color: 'red' };
@@ -59,8 +90,8 @@ const Local = () => {
         lightStyle = { color: 'green' };
     }
 
-    let AQIMessage = '';
-    let AQIStyle = {};
+    let AQIMessage;
+    let AQIStyle;
     if (parsedData.C > 80) {
         AQIMessage = 'Gas leak warning!!!';
         AQIStyle = { color: 'red' };
