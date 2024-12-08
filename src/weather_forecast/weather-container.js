@@ -147,7 +147,7 @@ const WeatherContainer = () => {
             <div className="weather-data">
                 <h1>Weather Forecast</h1>
                 <h2>{weatherData.name}</h2>
-                <p className="text">________________________________________</p>
+                <p>---------------------------------------------------</p>
                 <div className="text">
                     <p>Temperature: {weatherData.main.temp}°C</p>
                     <p>Humidity: {weatherData.main.humidity}%</p>
