@@ -3,7 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const { SerialPort, ReadlineParser } = require('serialport');
 const cors = require('cors');
-const { insertReading, insertEmployeeReading} = require("./get-db-data");
+const { insertReading, insertEmployeeReading, getAverages, getLatestAverages} = require("./get-db-data");
 
 const app = express();
 const server = http.createServer(app);
@@ -106,3 +106,25 @@ app.post('/employee', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+app.get('/avg', async (req, res) => {
+    try {
+        const averageData = await getAverages();
+        res.status(200).json(averageData);
+    } catch (error) {
+        console.error('Error fetching average data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/latest-averages', async (req, res) => {
+    try {
+        const { averages, spikes } = await getLatestAverages();
+        res.status(200).json({ averages, spikes });
+    } catch (error) {
+        console.error('Error handling /latest-averages request:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+

@@ -14,6 +14,7 @@ class App extends React.Component {
             error: "",
             device: null,
             parsedData: { T: 36.7, R: 85, O: 96, S: 56 },
+            spikes: []
         };
 
         this.connectToHM10 = this.connectToHM10.bind(this);
@@ -102,7 +103,11 @@ class App extends React.Component {
         console.log(O);
         console.log(S);
 
-        const dataToSend = {employee: 1, heartrate: R, body_temperature: T, o2level: this.generateOxygenLevel, stress: this.generateStressLevel()};
+        let newO2 = this.generateOxygenLevel();
+        let newStress = this.generateStressLevel();
+
+        const dataToSend = {employee: 1, heartrate: R, body_temperature: T, o2level: newO2, stress: newStress};
+        console.log(dataToSend);
 
         try {
             // Send a POST request to the backend
@@ -120,10 +125,28 @@ class App extends React.Component {
 
             const result = await response.json();
             console.log('Data inserted into database:', result);
+
+            this.checkForSpikes(result);
         } catch (error) {
             console.error('Error sending data to backend:', error);
         }
     };
+
+    checkForSpikes = (data) => {
+        const thresholds = {
+            heartrate: 100,
+            body_temperature: 38,
+            o2level: 90,
+            stress: 5,
+        };
+
+        const spikes = Object.keys(thresholds).filter(
+            key => data[key] > thresholds[key]
+        );
+
+        this.setState({ spikes: spikes });
+    };
+
 
 
     render() {
@@ -132,6 +155,11 @@ class App extends React.Component {
                 <Router>
                     <div>
                         <NavigationBar connectToHM10={this.connectToHM10} disconnectFromHM10={this.disconnectFromHM10}/>
+                        {this.state.spikes.length > 0 && (
+                            <div className="error-banner">
+                                Warning! Spikes detected in: {this.state.spikes.join(', ')}
+                            </div>
+                        )}
                         <Switch>
                             <Route exact path='/' render={() => <Home />} />
                             <Route exact path='/error' render={() => <ErrorPage />} />

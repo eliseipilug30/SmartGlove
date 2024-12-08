@@ -30,15 +30,34 @@ const WeatherContainer = () => {
                         setIsLoading(false);
                         console.log(data);
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => { console.log(error); setErrorMessage(error); });
             })
             .catch(error => console.log(error));
     }
 
     function error() {
         console.log("Unable to retrieve your location");
-        setErrorMessage(error.message);
-        setIsLoading(false);
+        setLocation({ latitude: 46.770439, longitude: 23.591423 });
+        console.log(`Latitude: ${location.latitude}, Longitude: ${location.longitude}`);
+
+
+        // Make API call to OpenWeatherMap
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                setWeatherData(data);
+                console.log(data);
+
+                fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${location.latitude}&lon=${location.longitude}&appid=57dd333c2d82cdda58e5cbae88bd2dfa`)
+                    .then(response => response.json())
+                    .then(data => {
+                        setUVIndex(data);
+                        setIsLoading(false);
+                        console.log(data);
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
     }
 
     useEffect(() => {
@@ -53,8 +72,8 @@ const WeatherContainer = () => {
         // Initial fetch
         fetchWeather();
 
-        // Set interval for continuous updates every 20 s (12000 ms)
-        const intervalId = setInterval(fetchWeather, 1200000);
+        // Set interval for continuous updates every 1 m (60 000 ms)
+        const intervalId = setInterval(fetchWeather, 60000);
 
         // Cleanup the interval on component unmount
         return () => clearInterval(intervalId);
