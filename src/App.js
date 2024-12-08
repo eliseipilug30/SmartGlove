@@ -91,7 +91,7 @@ class App extends React.Component {
     };
 
     generateOxygenLevel = () => {
-        return Math.floor(Math.random() * (100 - 90)) + 90;
+        return Math.floor(Math.random() * (100 - 60)) + 60;
     }
 
     generateStressLevel = () => {
@@ -135,14 +135,14 @@ class App extends React.Component {
 
     checkForSpikes = (data) => {
         const thresholds = {
-            heartrate: 100,
-            body_temperature: 38,
-            o2level: 90,
-            stress: 5,
+            heartrate: (value) => value > 130,
+            body_temperature: (value) => value > 38,
+            o2level: (value) => value < 75,
+            stress: (value) => value > 65,
         };
 
         const spikes = Object.keys(thresholds).filter(
-            key => data[key] > thresholds[key]
+            key => thresholds[key](data[key])
         );
 
         this.setState({ spikes: spikes, employee: data.employee_number });
