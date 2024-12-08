@@ -5,4 +5,9 @@
         height: 30vh;  /* Reduce height on smaller screens */
         width: 100%;
     }
+
+    .canvas {
+        height: 20vh;  /* Reduce height on smaller screens */
+        width: 100%;
+    }
 }
