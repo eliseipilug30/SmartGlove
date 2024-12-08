@@ -15,4 +15,4 @@
 * npm install
 * npm start
 
-### demo deploy is available at: [Polihack Netlify App](https://polihack.netlify.com/).
+### demo deploy is available at: [Polihack Netlify App](https://polihack.netlify.app/).
