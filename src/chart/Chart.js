@@ -112,6 +112,7 @@ function ChartComponent() {
                 data: chartData,
                 options: {
                     responsive: true,
+                    maintainAspectRatio: true,
                     plugins: {
                         legend: {
                             display: true,
