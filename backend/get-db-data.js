@@ -41,22 +41,26 @@ const getAverages = async () => {
                    AVG(body_temperature) AS avg_body_temperature,
                    AVG(o2level)          AS avg_o2level,
                    AVG(stress)           AS avg_stress
-            FROM (SELECT FLOOR((ROW_NUMBER() OVER (ORDER BY id) - 1) / 10) + 1 AS batch_number,
-                         heartrate,
-                         body_temperature,
-                         o2level,
-                         stress
-                  FROM employee) AS batches
+            FROM (
+                SELECT FLOOR((ROW_NUMBER() OVER (ORDER BY id DESC) - 1) / 10) + 1 AS batch_number,
+                       heartrate,
+                       body_temperature,
+                       o2level,
+                       stress
+                FROM employee
+            ) AS batches
             GROUP BY batch_number
-            ORDER BY batch_number LIMIT 10;`;
+            ORDER BY batch_number DESC
+            LIMIT 10;
+        `;
 
         const result = await pool.query(query);
-        return result.rows;
+        return result.rows.reverse(); // Reverse the order to get batches in ascending order
     } catch (error) {
         console.error('Error fetching batch averages:', error);
         throw new Error('Internal Server Error');
     }
-}
+};
 
 const getLatestAverages = async() => {
     const query = `

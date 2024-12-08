@@ -43,61 +43,69 @@ function ChartComponent() {
     });
 
     useEffect(() => {
-        let intervalId;
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/avg');
+                const data = await response.json();
 
-        const fetchData = () => {
-            fetch('http://localhost:3001/avg')
-                .then(response => response.json())
-                .then(data => {
-                    setChartData({
-                        labels: data.batch_number,
-                        datasets: [
-                            {
-                                label: 'Average Heartrate',
-                                data: data.avg_heartrate,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'Average Body Temperature',
-                                data: data.avg_body_temperature,
-                                backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                                borderColor: 'rgba(255, 159, 64, 1)',
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'Average O2 Level',
-                                data: data.avg_o2level,
-                                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                                borderColor: 'rgba(153, 102, 255, 1)',
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'Average Stress',
-                                data: data.avg_stress,
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1,
-                            },
-                        ],
-                    });
-                })
-                .catch(error => console.error('Error fetching chart data:', error));
+                const labels = data.map(item => item.batch_number.toString());
+                const heartrateData = data.map(item => item.avg_heartrate);
+                const bodyTempData = data.map(item => item.avg_body_temperature);
+                const o2LevelData = data.map(item => parseFloat(item.avg_o2level));
+                const stressData = data.map(item => parseFloat(item.avg_stress));
+
+                setChartData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Average Heartrate',
+                            data: heartrateData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                        },
+                        {
+                            label: 'Average Body Temperature',
+                            data: bodyTempData,
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 1,
+                        },
+                        {
+                            label: 'Average O2 Level',
+                            data: o2LevelData,
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1,
+                        },
+                        {
+                            label: 'Average Stress',
+                            data: stressData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                        },
+                    ],
+                });
+            } catch (error) {
+                console.error('Error fetching chart data:', error);
+            }
         };
 
         fetchData();
-        intervalId = setInterval(fetchData, 5000);
+        const intervalId = setInterval(fetchData, 5000);
 
         return () => clearInterval(intervalId);
     }, []);
 
-    useEffect(() => {
-        if (chartRef.current) {
-            if (chartInstanceRef.current) {
-                chartInstanceRef.current.destroy();
-            }
 
+    useEffect(() => {
+        if (chartInstanceRef.current) {
+            // Update chart data and re-render the chart
+            chartInstanceRef.current.data = chartData;
+            chartInstanceRef.current.update();
+        } else if (chartRef.current) {
+            // Create the chart if it doesn't exist
             const ctx = chartRef.current.getContext('2d');
             chartInstanceRef.current = new Chart(ctx, {
                 type: 'line',

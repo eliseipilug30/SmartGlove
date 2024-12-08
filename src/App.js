@@ -14,7 +14,8 @@ class App extends React.Component {
             error: "",
             device: null,
             parsedData: { T: 36.7, R: 85, O: 96, S: 56 },
-            spikes: []
+            spikes: [],
+            employee: null,
         };
 
         this.connectToHM10 = this.connectToHM10.bind(this);
@@ -144,7 +145,7 @@ class App extends React.Component {
             key => data[key] > thresholds[key]
         );
 
-        this.setState({ spikes: spikes });
+        this.setState({ spikes: spikes, employee: data.employee_number });
     };
 
 
@@ -155,13 +156,8 @@ class App extends React.Component {
                 <Router>
                     <div>
                         <NavigationBar connectToHM10={this.connectToHM10} disconnectFromHM10={this.disconnectFromHM10}/>
-                        {this.state.spikes.length > 0 && (
-                            <div className="error-banner">
-                                Warning! Spikes detected in: {this.state.spikes.join(', ')}
-                            </div>
-                        )}
                         <Switch>
-                            <Route exact path='/' render={() => <Home />} />
+                            <Route exact path='/' render={() => <Home spikes={this.state.spikes} employee={this.state.employee}/>} />
                             <Route exact path='/error' render={() => <ErrorPage />} />
                             <Route render={() => <ErrorPage />} />
                         </Switch>

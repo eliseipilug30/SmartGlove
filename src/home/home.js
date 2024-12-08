@@ -19,12 +19,12 @@ const backgroundStyle = {
 
 const textStyle = { color: 'white' };
 
-const Home = () => {
+const Home = ({spikes, employee}) => {
     return (
         <div>
             <Jumbotron fluid style={backgroundStyle}>
                 <Container fluid>
-                    <h1 className="display-3" style={textStyle}>Harmoniq</h1>
+                    <h1 className="display-3" style={textStyle}>PulseLink</h1>
                     <p className="lead" style={textStyle}><b>Shaping the future of your team's well-being.</b></p>
                 </Container>
                 <div>
@@ -32,7 +32,7 @@ const Home = () => {
                 </div>
                 <div className="cards-container">
                     <Local />
-                    <EmployeeData />
+                    <EmployeeData spikes={spikes} employee={employee}/>
                 </div>
             </Jumbotron>
         </div>
