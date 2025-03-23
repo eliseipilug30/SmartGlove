@@ -5,7 +5,6 @@ import Home from './home/home';
 import ErrorPage from './commons/errorhandling/error-page';
 import styles from './commons/styles/project-style.css';
 
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +12,7 @@ class App extends React.Component {
             data: "",
             error: "",
             device: null,
-            parsedData: { T: 36.7, R: 85, O: 96, S: 56 },
+            parsedData: { S1: 567, S2: 585, S3: 696, S4: 564, S5: 562 },
             spikes: [],
             employee: null,
         };
@@ -70,7 +69,6 @@ class App extends React.Component {
                 });
 
                 console.log(value);
-                this.sendDataToBackend();
             });
 
             console.log("Connected to HM-10!");
@@ -90,74 +88,14 @@ class App extends React.Component {
         }
     };
 
-    generateOxygenLevel = () => {
-        return Math.floor(Math.random() * (100 - 60)) + 60;
-    }
-
-    generateStressLevel = () => {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-
-
-    sendDataToBackend = async () => {
-        const {T, R, O, S} = this.state.parsedData;
-        console.log(O);
-        console.log(S);
-
-        let newO2 = this.generateOxygenLevel();
-        let newStress = this.generateStressLevel();
-
-        const dataToSend = {employee: 1, heartrate: R, body_temperature: T, o2level: newO2, stress: newStress};
-        console.log(dataToSend);
-
-        try {
-            // Send a POST request to the backend
-            const response = await fetch('http://localhost:3001/employee', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to send data to the backend');
-            }
-
-            const result = await response.json();
-            console.log('Data inserted into database:', result);
-
-            this.checkForSpikes(result);
-        } catch (error) {
-            console.error('Error sending data to backend:', error);
-        }
-    };
-
-    checkForSpikes = (data) => {
-        const thresholds = {
-            heartrate: (value) => value > 130,
-            body_temperature: (value) => value > 38,
-            o2level: (value) => value < 75,
-            stress: (value) => value > 65,
-        };
-
-        const spikes = Object.keys(thresholds).filter(
-            key => thresholds[key](data[key])
-        );
-
-        this.setState({ spikes: spikes, employee: data.employee_number });
-    };
-
-
-
     render() {
         return (
             <div className={styles.back}>
                 <Router>
                     <div>
-                        <NavigationBar connectToHM10={this.connectToHM10} disconnectFromHM10={this.disconnectFromHM10}/>
+                        <NavigationBar connectToHM10={this.connectToHM10} disconnectFromHM10={this.disconnectFromHM10} />
                         <Switch>
-                            <Route exact path='/' render={() => <Home spikes={this.state.spikes} employee={this.state.employee}/>} />
+                            <Route exact path='/' render={() => <Home parsedData={this.state.parsedData} />} />
                             <Route exact path='/error' render={() => <ErrorPage />} />
                             <Route render={() => <ErrorPage />} />
                         </Switch>
