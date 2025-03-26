@@ -9,7 +9,7 @@ The project includes an intuitive interface for monitoring progress, making home
 - **Embedded Systems** for glove functionality
 - **C/C++** (for embedded development)
 - **JavaScript** (for frontend and web interface)
-- **React.js** (for interactive design)
+- **HTML/CSS** (for interactive design)
 
 ## Features
 - Real-time tracking of finger movements for therapy monitoring
