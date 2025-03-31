@@ -7,7 +7,7 @@ IoT for connectivity
 
 Embedded Systems for glove functionality
 
-C/C++ (for embedded development)
+C (for embedded development)
 
 JavaScript (for frontend and web interface)
 
